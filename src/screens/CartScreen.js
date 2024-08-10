@@ -5,6 +5,7 @@ import {
   FlatList,
   Image,
   Modal,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -56,8 +57,8 @@ const CartScreen = () => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart(selectedProduct));
     closeProductModal();
+    dispatch(addToCart(selectedProduct));
   };
 
   const renderProduct = ({item}) => {
@@ -138,9 +139,13 @@ const CartScreen = () => {
                   />
                   <View style={styles.descriptionStyle}>
                     <Text style={styles.modalPrice}>{'Description:'}</Text>
-                    <Text style={styles.modalDescription}>
-                      {selectedProduct?.description}
-                    </Text>
+                    <ScrollView
+                      style={{height: 160, marginVertical: 3}}
+                      showsVerticalScrollIndicator={false}>
+                      <Text style={styles.modalDescription}>
+                        {selectedProduct?.description}
+                      </Text>
+                    </ScrollView>
                   </View>
                   <View style={styles.closeContainer}>
                     <MyButton
