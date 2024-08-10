@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     // padding: 16,
+    backgroundColor: '#fff',
   },
   itemContainer: {
     flexDirection: 'row',
@@ -10,10 +11,16 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 10,
     borderColor: '#ddd',
+    backgroundColor: '#fff',
     padding: 8,
     gap: 10,
   },
   itemTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  desriptionText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#888',
@@ -22,6 +29,10 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontWeight: 'bold',
     color: '#000',
+  },
+  ratingCount: {
+    fontWeight: 'bold',
+    color: '#ddd',
   },
   incdecbtn: {
     fontWeight: 'bold',
@@ -50,8 +61,8 @@ const styles = StyleSheet.create({
   img: {
     width: 100,
     height: 110,
-    resizeMode: 'contain',
-    borderRadius: 12,
+    resizeMode: 'center',
+    borderRadius: 5,
   },
   productImage: {
     alignSelf: 'center',
@@ -66,7 +77,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   modalDescription: {
-    fontSize: 16,
+    fontSize: 14,
+    lineHeight: 20,
     color: 'black',
     width: 215,
   },

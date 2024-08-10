@@ -17,7 +17,7 @@ import {
   incrementQuantity,
 } from '../redux/features/Cart';
 import styles from './styles';
-
+import {Rating} from 'react-native-ratings';
 const CartScreen = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -31,8 +31,10 @@ const CartScreen = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          'https://api.escuelajs.co/api/v1/products',
+          'https://fakestoreapi.com/products',
+          // 'https://api.escuelajs.co/api/v1/products',
         );
+        console.log('🚀 ~ fetchProducts ~ response:', response?.data[0]);
         setProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -59,16 +61,27 @@ const CartScreen = () => {
   };
 
   const renderProduct = ({item}) => {
-    const cartItem = cart?.find(cartItem => cartItem.id === item.id);
+    const cartItem = cart?.find(cartItem => cartItem.id === item?.id);
     return (
-      <TouchableOpacity
-        onPress={() => openProductModal(item)}
-        style={styles.itemContainer}>
-        <Image source={{uri: item?.images[0]}} style={styles.img} />
+      <View style={styles.itemContainer}>
+        <TouchableOpacity onPress={() => openProductModal(item)}>
+          <Image source={{uri: item?.image}} style={styles.img} />
+        </TouchableOpacity>
         <View style={{width: '60%', justifyContent: 'space-between'}}>
           <Text numberOfLines={2} style={styles.itemTitle}>
             {item?.title}
           </Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 6}}>
+            <Rating
+              ratingImage={'start'}
+              ratingCount={5}
+              minValue={0}
+              startingValue={item?.rating?.rate}
+              imageSize={15}
+              readonly={true}
+            />
+            <Text style={styles.ratingCount}>{item?.rating?.count}</Text>
+          </View>
           <View style={styles.quantityContainer}>
             <Text style={styles.itemPrice}>Rs. {item.price}</Text>
             {cartItem?.quantity >= 1 && (
@@ -85,9 +98,9 @@ const CartScreen = () => {
               </View>
             )}
           </View>
-          <Text style={styles.itemTitle}>Category: {item?.category?.name}</Text>
+          <Text style={styles.desriptionText}>Category: {item?.category}</Text>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -120,7 +133,7 @@ const CartScreen = () => {
               {selectedProduct && (
                 <>
                   <Image
-                    source={{uri: selectedProduct?.images[0]}}
+                    source={{uri: selectedProduct?.image}}
                     style={styles.productImage}
                   />
                   <View style={styles.descriptionStyle}>
